@@ -1,0 +1,22 @@
+.skin-blue .navbar {
+    background-color: #331b01;
+}
+
+.skin-blue .left-side {
+    background: none repeat scroll 0 0 #f2ecd6;
+    box-shadow: -3px 0 8px -4px rgba(0, 0, 0, 0.07) inset;
+}
+
+.skin-blue .right-side > .content-header {
+    background: none repeat scroll 0 0 #f2ecd6;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.skin-blue .logo {
+    background-color: #e8dfbc;
+    color: #f9f9f9;
+}
+
+.logo > img {
+    width: 133px;
+}
