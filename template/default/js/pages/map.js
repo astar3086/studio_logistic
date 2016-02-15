@@ -6,19 +6,17 @@ var current = {};
 var markers;
 var map;
 
-    $('.down_hide_icon').click(function() {
-        $('.col-md-content').hide();
-              
+     $('.down_hide_icon').click(function() {
+        $('.col-md-content .content_block').hide();
         $('.down_hide_icon').hide();
         $('.up_show_icon').show();
     });
     $('.up_show_icon').click(function() {
-        $('.col-md-content').show();
+        $('.col-md-content .content_block').show();
         $("html, body").animate({ scrollTop: $(document).height() }, 1000);   
         $('.up_show_icon').hide();
         $('.down_hide_icon').show();
     });
-
     $('.hide_left_block').click(function() {
         $('.col-md-1 .row:not(.btns)').hide();
         $('.col-md-1').css('height', 'auto');
@@ -27,50 +25,34 @@ var map;
     });
     $('.show_left_block').click(function() {
         $('.col-md-1 .row:not(.btns)').show();
-        $('.col-md-1').css('height', '100%');
+        if($( window ).width() == 414) {
+            $('.col-md-1').css('height', '679px');
+        } else {
+            $('.col-md-1').css('height', '100%');
+        }
         $('.show_left_block').hide();
         $('.hide_left_block').show();
     });
 
    $('.show_sideblock').click(function() {
-             $('.show_sideblock').removeClass('actived');
-                // if($('#tab_icon1').hasClass( "minimized" )){
-                //         $('#tab_icon1').addClass('actived');
-                //     } else {
-                //         $('#tab_icon1').removeClass('actived');
-                //     }
-                //     if($('#tab_icon2').hasClass( "minimized" )){
-                //         $('#tab_icon2').addClass('actived');
-                //     }else {
-                //         $('#tab_icon2').removeClass('actived');
-                //     }
-                //     if($('#tab_icon3').hasClass( "minimized" )){
-                //         $('#tab_icon3').addClass('actived');
-                //     }else {
-                //         $('#tab_icon3').removeClass('actived');
-                //     }
-                //     if($('#tab_icon4').hasClass( "minimized" )){
-                //         $('#tab_icon4').addClass('actived');
-                //     } 
-                //     if($('#tab_icon5').hasClass( "minimized" )){
-                //         $('#tab_icon5').addClass('actived');
-                //     }else {
-                //         $('#tab_icon5').removeClass('actived');
-                //     }
-                //     if($('#tab_icon6').hasClass( "minimized" )){
-                //         $('#tab_icon6').addClass('actived');
-                //     }else {
-                //         $('#tab_icon6').removeClass('actived');
-                //     }
+        $('.show_sideblock').removeClass('actived');        
         var my_storage = localStorage.getItem("current_block");
-        if(my_storage == "3_1" || my_storage == "3_2" || my_storage == "3_3" || my_storage == "3_4" || my_storage == "3_5"){
+        console.log(my_storage);
+        if(my_storage === "3_1" || my_storage === "3_2" || my_storage === "3_3" || my_storage === "3_4" || my_storage === "3_5"){
             $('#tab_icon3').addClass('actived');
-        }     
-            $('.col-md-content').show();
-            $('.col-md-header').show();
-            $('.section_header').show();
-            $('.section_header_7').show();
-            $('.section_header_6').show();
+        }    
+            var id = $(this).data("block");
+            var btn_block = '.btn_block'+ id;
+            var tab_icon = '#tab_icon'+ id;
+            var block = '#block'+ id;
+            $('.active').removeClass('active');
+            $(btn_block).addClass('active');
+            $(tab_icon).addClass('actived');
+            $(block).addClass('active');
+
+           $('.col-md-content').animate({
+                right: "0px"
+            }, 200);
 
             $('.item').show();
             $('.show_icon').hide();
@@ -79,74 +61,29 @@ var map;
    });
 
 
-    $('.btn_block1').click(function() {
-        $('.active').removeClass('active');
-        $('.btn_block1').addClass('active');
-          
-        $('.tab_icons .btn_block1').addClass('actived');
-        $('#block1').addClass('active');
-    });
-    $('.btn_block2').click(function() {
-        console.log("click");
-        $('.active').removeClass('active');
-        $('.btn_block2').addClass('active');
-         
-          
-        $('#tab_icon2').addClass('actived');
-        $('#block2').addClass('active');
-    });
-    $('.btn_block3').click(function() {
-        $('.active').removeClass('active');
-        $('.btn_block3').addClass('active');
-       
-       
-          
-        $('.tab_icons .btn_block3').addClass('actived');
-        $('#block3').addClass('active');
-    });
-    $('.btn_block4').click(function() {
-        $('.active').removeClass('active');
-        $('.btn_block4').addClass('active');
-          
-        $('.tab_icons .btn_block4').addClass('actived');
-        $('#block4').addClass('active');
-    });
-    $('.btn_block5').click(function() {
-        $('.active').removeClass('active');
-        $('.btn_block5').addClass('active');
-          
-        $('.tab_icons .btn_block5').addClass('actived');
-        $('#block5').addClass('active');
-    });
-    $('.btn_block6').click(function() {
-        $('.active').removeClass('active');
-        $('.btn_block6').addClass('active');
-          
-        $('.tab_icons .btn_block6').addClass('actived');
-        $('#block6').addClass('active');
-    });
+    
      // sections
-            $('.btn_container').click(function() {
+           $('.btn_block3_1').click(function() {
                $('.active').removeClass('active');
                $('.btn_block3').addClass('active');
                 $('#block3_1').addClass('active');
              });
-            $('.btn_size_palet').click(function() {
+            $('.btn_block3_2').click(function() {
                $('.active').removeClass('active');
                $('.btn_block3').addClass('active');
                 $('#block3_2').addClass('active');
              });
-            $('.btn_uld_type').click(function() {
+            $('.btn_block3_3').click(function() {
                $('.active').removeClass('active');
                $('.btn_block3').addClass('active');
                 $('#block3_3').addClass('active');
              });
-            $('.btn_type_wagon').click(function() {
+            $('.btn_block3_4').click(function() {
                $('.active').removeClass('active');
                $('.btn_block3').addClass('active');
                 $('#block3_4').addClass('active');
              });
-            $('.btn_incoterms').click(function() {
+            $('.btn_block3_5').click(function() {
                $('.active').removeClass('active');
                $('.btn_block3').addClass('active');
                 $('#block3_5').addClass('active');
@@ -173,13 +110,16 @@ var map;
                     } 
              });
 
-    $('.close_icon').click(function() {
+   $('.close_icon').click(function() {
         $('.active').removeClass('active');
-        $('.actived').removeClass('actived');
         var id = $(this).data("block");
-            var tab_icon = '#tab_icon'+ id;
-            $(tab_icon).removeClass('minimized');
-        localStorage.setItem("current_block", '');
+        console.log(id);
+        var tab_icon = '#tab_icon'+ id;
+        $(tab_icon).removeClass('minimized').removeClass('actived');
+        if(id == "3_1" || id == "3_2" || id == "3_3" || id == "3_4" || id == "3_5"){
+            localStorage.setItem("current_block", '');
+        }   
+         
     });
     
     // mobile hide menu after click
@@ -190,32 +130,20 @@ var map;
      });
      
     //========================================================================//
-    // $('.show_sideblock').click(function() {
-    //     var id = $(this).data("menu");
-    //     var image =  $('img', this).attr('src');
-    //     $(".tab_icons").append('<a href="#" data-block="'+ id +'" id="tab_icon'+ id +'" class="btn_block'+ id +' show_sideblock actived"><img src="' + image +'"></a>');
-		
-    // });   
+ 
     
-    if (typeof(Storage) !== "undefined") {
-        
-    } else {
+    if (typeof(Storage) == "undefined") {
         document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
     }
 
-    // $('#menu li a').click(function() {
-    //     var id = $(this).data("block");
-    //     localStorage.setItem("current_block", id);
-    //     var my_storage = localStorage.getItem("current_block");
-    //     console.log(my_storage);
-    // });
-
+ 
     $('.submenu').click(function() {
         var id = $(this).data("block");
+         // var tab_icon = '#tab_icon'+ id;
         localStorage.setItem("current_block", id);
         var my_storage = localStorage.getItem("current_block");
         var image =  $('img', this).attr('src');
-        $('.actived img').attr('src', image);
+        $('#tab_icon3 img').attr('src', image);
         console.log(my_storage);
     });
 
@@ -235,10 +163,12 @@ var map;
          var my_storage = localStorage.getItem("current_block");
          var id = my_storage.substring(0, my_storage.length-2);
         localStorage.setItem("current_block", id);
-
+         var cur_block = '#block'+ id;
+         $(cur_block).addClass('active');
+         $('.btn_block3').addClass('active');
         console.log("my_storage",id);
         var image2 = $('.navbar-nav li .active img').attr('src');
-        $('.actived img').attr('src', image2);
+        $('#tab_icon3 img').attr('src', image2);
 
         console.log("image2",image2);
          
@@ -262,14 +192,20 @@ var map;
     $('.hide_sideblock').click(function() {
         var id = $(this).data("block");
         var tab_icon = '#tab_icon'+ id;
-        $(tab_icon).addClass('minimized');
+        $(tab_icon).addClass('minimized').removeClass('active');
 
-          $('.col-md-content').hide();
-          $('.section_header').hide();
-          $('.section_header_7').hide();
-          $('.section_header_6').hide();
-           $('.col-md-header').hide();
-
+          $('.col-md-content').animate({
+                   right: "-40%"
+                  }, 200);
+           $('.col-md-8.col-md-content').animate({
+                    right: "-70%"
+                  }, 200);
+           $('.col-md-7.col-md-content').animate({
+                    right: "-60%"
+                  }, 200);
+           $('.col-md-6.col-md-content').animate({
+                    right: "-55%"
+                  }, 200);
 
           $('.item').hide();
           $('.hide_icon').hide();
