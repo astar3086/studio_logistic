@@ -88,7 +88,7 @@ $(document).ready(function() {
         jQuery.ajax({
             type: "POST",
             url: '/Places/getByService/',
-            async: true,
+            async: false,
             cache: false,
             data: {
                 id: get_id
@@ -224,6 +224,10 @@ $(document).ready(function() {
 
 });
 
+$('.btns .hide_left_block').click(function() {
+    $('.block').hide();
+    $('.col-md-1 .row a').removeClass('image');
+});
 
 function design_icon1( tclass, id )
 {
@@ -308,6 +312,7 @@ function getParameters( url ) {
 
 function initialize() {
     map = new GMaps({
+         
         div: '#map_canvas',
         lat: -12.043333,
         lng: -77.028333,
@@ -320,11 +325,20 @@ function initialize() {
         zoomControl: true,
         scaleControl: true,
         scrollwheel: true,
+
         markerClusterer: function( map ) {
             markerClusterer = new MarkerClusterer( map );
             return markerClusterer;
+        },
+      
+        setCentreMap:function( ) {
+            
         }
+ 
     });
+  
+     
+
 
     map.setOptions({
     });
@@ -332,4 +346,14 @@ function initialize() {
 
 
 }
+ 
+  // var map = new google.maps.Map(document.getElementById('map'), {
+  //     zoom: minZoomLevel,
+  //     center: new google.maps.LatLng(38.50, -90.50),
+  //     mapTypeId: google.maps.MapTypeId.ROADMAP
+  //  });
 
+ 
+
+   // Listen for the dragend event
+ 

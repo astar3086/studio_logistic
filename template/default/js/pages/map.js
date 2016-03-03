@@ -33,7 +33,9 @@ var map;
         $('.show_left_block').hide();
         $('.hide_left_block').show();
     });
-
+    window.onbeforeunload = function() {
+        localStorage.setItem("current_block", '');
+      }
    $('.show_sideblock').click(function() {
         $('.show_sideblock').removeClass('actived');        
         var my_storage = localStorage.getItem("current_block");
@@ -128,6 +130,12 @@ var map;
       $('.navbar-collapse.collapse.in').attr("aria-expanded","false");
       $("html, body").animate({ scrollTop: $(document).height() }, 1000);
      });
+    if($( window ).width() < 766) {
+        $('.btn_block3_1').click(function() {
+            alert('dksl');
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        });
+    };
      
     //========================================================================//
  
@@ -194,18 +202,37 @@ var map;
         var tab_icon = '#tab_icon'+ id;
         $(tab_icon).addClass('minimized').removeClass('active');
 
-          $('.col-md-content').animate({
+
+          if($( window ).width() > 766 && $( window ).width() < 992 ) {
+               $('.col-md-content').animate({
+                   right: "-52%"
+                  }, 200);
+               $('.col-md-8.col-md-content').animate({
+                    right: "-75%"
+                  }, 200);
+               $('.col-md-7.col-md-content').animate({
+                        right: "-70%"
+                      }, 200);
+               $('.col-md-6.col-md-content').animate({
+                        right: "-60%"
+                      }, 200);
+             }  else {
+                $('.col-md-content').animate({
                    right: "-40%"
                   }, 200);
-           $('.col-md-8.col-md-content').animate({
+                $('.col-md-8.col-md-content').animate({
                     right: "-70%"
                   }, 200);
-           $('.col-md-7.col-md-content').animate({
-                    right: "-60%"
-                  }, 200);
-           $('.col-md-6.col-md-content').animate({
-                    right: "-55%"
-                  }, 200);
+               $('.col-md-7.col-md-content').animate({
+                        right: "-60%"
+                      }, 200);
+               $('.col-md-6.col-md-content').animate({
+                        right: "-55%"
+                      }, 200);
+             }
+
+          
+            
 
           $('.item').hide();
           $('.hide_icon').hide();
