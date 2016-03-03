@@ -324,7 +324,6 @@ function initialize() {
             markerClusterer = new MarkerClusterer( map );
             return markerClusterer;
         }
-
     });
 
     map.setOptions({
