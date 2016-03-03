@@ -188,6 +188,7 @@ var GMaps = (function(global) {
         options_to_be_deleted = ['el', 'lat', 'lng', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
         identifier = options.el || options.div,
         markerClustererFunction = options.markerClusterer,
+        setCentreMapFunction = options.setCentreMap,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
         zoomControl = valueOrDefault(options.zoomControl, true),
@@ -281,6 +282,7 @@ var GMaps = (function(global) {
     if (markerClustererFunction) {
       this.markerClusterer = markerClustererFunction.apply(this, [this.map]);
     }
+    
 
     var buildContextMenuHTML = function(control, e) {
       var html = '',
@@ -474,7 +476,27 @@ var GMaps = (function(global) {
         callback();
       }
     };
+    if (setCentreMapFunction) {
+       var strictBounds = new google.maps.LatLngBounds(
+       new google.maps.LatLng(-70, 1),
+       new google.maps.LatLng(60, -1));
+        google.maps.event.addListener(this.map, 'dragend', function () {
+           if (strictBounds.contains(map.getCenter())) return;
+          var c = map.getCenter(),
+         x = c.lng(),
+         y = c.lat(),
+         maxX = strictBounds.getNorthEast().lng(),
+         maxY = strictBounds.getNorthEast().lat(),
+         minX = strictBounds.getSouthWest().lng(),
+         minY = strictBounds.getSouthWest().lat();
 
+         if (x < minX) x = minX;
+         if (x > maxX) x = maxX;
+         if (y < minY) y = minY;
+         if (y > maxY) y = maxY;
+         this.setCenter(new google.maps.LatLng(y, x));
+        });
+    };
     this.getElement = function() {
       return this.el;
     };
