@@ -185,9 +185,10 @@ var GMaps = (function(global) {
           'resize', 'tilesloaded', 'zoom_changed'
         ],
         events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'],
-        options_to_be_deleted = ['el', 'lat', 'lng', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
+        options_to_be_deleted = ['el', 'lat', 'lng', 'type', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
         identifier = options.el || options.div,
         markerClustererFunction = options.markerClusterer,
+        setCentreMapFunction = options.setCentreMap,
         mapType = google.maps.MapTypeId[options.mapType.toUpperCase()],
         map_center = new google.maps.LatLng(options.lat, options.lng),
         zoomControl = valueOrDefault(options.zoomControl, true),
@@ -245,6 +246,7 @@ var GMaps = (function(global) {
     this.layers = []; // array with kml/georss and fusiontables layers, can be as many
     this.singleLayers = {}; // object with the other layers, only one per layer
     this.markers = [];
+    this.collectionType = {};
     this.polylines = [];
     this.routes = [];
     this.polygons = [];
@@ -281,6 +283,7 @@ var GMaps = (function(global) {
     if (markerClustererFunction) {
       this.markerClusterer = markerClustererFunction.apply(this, [this.map]);
     }
+    
 
     var buildContextMenuHTML = function(control, e) {
       var html = '',
@@ -474,7 +477,27 @@ var GMaps = (function(global) {
         callback();
       }
     };
+    if (setCentreMapFunction) {
+       var strictBounds = new google.maps.LatLngBounds(
+       new google.maps.LatLng(-70, 1),
+       new google.maps.LatLng(60, -1));
+        google.maps.event.addListener(this.map, 'dragend', function () {
+           if (strictBounds.contains(map.getCenter())) return;
+          var c = map.getCenter(),
+         x = c.lng(),
+         y = c.lat(),
+         maxX = strictBounds.getNorthEast().lng(),
+         maxY = strictBounds.getNorthEast().lat(),
+         minX = strictBounds.getSouthWest().lng(),
+         minY = strictBounds.getSouthWest().lat();
 
+         if (x < minX) x = minX;
+         if (x > maxX) x = maxX;
+         if (y < minY) y = minY;
+         if (y > maxY) y = maxY;
+         this.setCenter(new google.maps.LatLng(y, x));
+        });
+    };
     this.getElement = function() {
       return this.el;
     };
@@ -729,6 +752,20 @@ GMaps.prototype.addMarker = function(options) {
 
   this.markers.push(marker);
 
+  // Add Marker To Collection // astar
+  var idx = this.markers.indexOf(marker);
+  var type = options['type'];
+  console.log(options['type']);
+
+
+  if ( this.collectionType[ type ] == undefined )
+  {
+    this.collectionType[ type ] = {
+      'markers': [],
+    };
+  }
+
+  this.collectionType[ type ]['markers'].push( idx );
   GMaps.fire('marker_added', marker, this);
 
   return marker;
@@ -816,6 +853,43 @@ GMaps.prototype.removeMarkers = function (collection) {
 
     this.markers = new_markers;
   }
+};
+
+GMaps.prototype.removeMarkersCollection = function ( type ) {
+  if ( this.collectionType[ type ] == undefined ) {
+    return;
+  }
+
+  var new_markers = [];
+  var markers_type = this.collectionType[ type ]['markers'];
+
+  for (var i = 0; i < markers_type.length; i++) {
+    var index = markers_type[ i ];
+
+    if (index > -1) {
+      var marker = this.markers[ index ];
+
+      if ( marker != undefined ){
+        marker.setMap(null);
+
+        if(this.markerClusterer) {
+          this.markerClusterer.removeMarker(marker);
+        }
+
+        GMaps.fire('marker_removed', marker, this);
+      }
+
+    }
+  }
+
+  for (var i = 0; i < this.markers.length; i++) {
+    var marker = this.markers[i];
+    if (marker.getMap() != null ) {
+      this.markers.pop(i);
+    }
+  }
+
+  //this.markers = new_markers;
 };
 
 GMaps.prototype.removeMarkersFrom = function (from, to) {

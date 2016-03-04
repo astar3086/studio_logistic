@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 
     // Login button click handler
-    $('#loginButton').on('click', function(event) {
+    $('.loginButton').on('click', function(event) {
         bootbox
             .dialog({
                 title: 'Login',
