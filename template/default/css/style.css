@@ -47,7 +47,7 @@ body {
     height:  1.6em;
 }
 /*.navbar-right.big > li:before {
-    content: url(http://logistic.carswar.com/template/default/img/shape.png);
+    content: url(../img/shape.png);
     position: absolute;
 }*/
 #navbar_fixed {
@@ -200,10 +200,11 @@ iframe {
 }
 .tab_icons .actived {
   background: rgba(221, 221, 221, 0.4);
-    box-shadow: inset 1px 1px 3px 0px rgba(0,0,0,0.75);
     display: inline-block;
 }
-
+.tab_icons .active {
+    box-shadow: inset 1px 1px 3px 0px rgba(0,0,0,0.75);
+}
 .col-md-1 {
     background: rgba(221, 221, 221, 0.64);
     position:  fixed;
@@ -238,85 +239,85 @@ iframe {
 }
 
 #a1 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_1_wb.png);
+  background-image: url(../img/left_icon_1_wb.png);
 }
 #a1:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_1.png);
+  background-image: url(../img/left_icon_1.png);
 }
 #a1.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_1.png) !important;
+  background-image: url(../img/left_icon_1.png) !important;
 }
 #a2 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_2_wb.png);
+  background-image: url(../img/left_icon_2_wb.png);
 }
 #a2:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_2.png);
+  background-image: url(../img/left_icon_2.png);
 }
 #a2.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_2.png) !important;
+  background-image: url(../img/left_icon_2.png) !important;
 }
 #a3 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_3_wb.png);
+  background-image: url(../img/left_icon_3_wb.png);
 }
 #a3:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_3.png);
+  background-image: url(../img/left_icon_3.png);
 }
 #a3.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_3.png) !important;
+  background-image: url(../img/left_icon_3.png) !important;
 }
 #a4 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_4_wb.png);
+  background-image: url(../img/left_icon_4_wb.png);
 }
 #a4:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_4.png);
+  background-image: url(../img/left_icon_4.png);
 }
 #a4.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_4.png) !important;
+  background-image: url(../img/left_icon_4.png) !important;
 }
 #a5 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_5_wb.png);
+  background-image: url(../img/left_icon_5_wb.png);
 }
 #a5:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_5.png);
+  background-image: url(../img/left_icon_5.png);
 }
 #a5.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_5.png) !important;
+  background-image: url(../img/left_icon_5.png) !important;
 }
 #a6 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_6_wb.png);
+  background-image: url(../img/left_icon_6_wb.png);
 }
 #a6:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_6.png);
+  background-image: url(../img/left_icon_6.png);
 }
 #a6.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_6.png) !important;
+  background-image: url(../img/left_icon_6.png) !important;
 }
 #a7 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_7_wb.png);
+  background-image: url(../img/left_icon_7_wb.png);
 }
 #a7:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_7.png);
+  background-image: url(../img/left_icon_7.png);
 }
 #a7.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_7.png) !important;
+  background-image: url(../img/left_icon_7.png) !important;
 }
 #a8 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_8_wb.png);
+  background-image: url(../img/left_icon_8_wb.png);
 }
 #a8:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_8.png);
+  background-image: url(../img/left_icon_8.png);
 }
 #a8.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_8.png) !important;
+  background-image: url(../img/left_icon_8.png) !important;
 }
 #a9 {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_9_wb.png);
+  background-image: url(../img/left_icon_9_wb.png);
 }
 #a9:hover {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_9.png);
+  background-image: url(../img/left_icon_9.png);
 }
 #a9.image {
-  background-image: url(http://logistic.carswar.com/template/default/img/left_icon_9.png) !important;
+  background-image: url(../img/left_icon_9.png) !important;
 }
 
 .block {
@@ -573,6 +574,12 @@ iframe {
 
                   /* ----- Full HD version -----------*/
 @media screen and (min-width: 1700px) {
+  .col-md-header {
+    top: 110px;
+  }
+  .col-md-content {
+    top: 162px;
+  }
     .content_block .col-md-4 {
         font-size:  90%;
         height: 15em;
@@ -600,6 +607,19 @@ iframe {
     .col-md-1 {
       top: 45px;
     }
+    .zopim {
+        bottom: 48px !important;
+    }
+    .tab_icons {
+          top: 50px;
+    }
+    .tab_icons a{
+        width: 45px;
+    height: 45px;
+    }
+    .tab_icons a img {
+            height: 30px;
+    }
 
 }
             /* ----- More 1366 version -----------*/
@@ -623,6 +643,14 @@ iframe {
     }
     #footer {
           font-size: 1vw;
+    }
+
+    .tab_icons a{
+        width: 40px;
+    height: 40px;
+    }
+    .tab_icons a img {
+            height: 26px;
     }
 }
           /* ----- Tablet version -----------*/
@@ -725,11 +753,15 @@ iframe {
     }
 }
             /* ----- Mobile version -----------*/
+
+ 
+           
  @media screen and (max-width: 766px) {
     body {
     /*min-height: 607px;*/
     min-height: 570px;
     }
+    
     .down_hide_icon {
       display: inline;
     }
@@ -787,7 +819,7 @@ iframe {
     }
     
      .block {
-        width: 251px;
+        width: 157px;
         position: relative;
     }
      .block a:first-child {
@@ -815,7 +847,7 @@ iframe {
         float: right;
     }
      .icons a:first-child {
-        display: none;
+        display: none !important;
     }
     .icons_cat {
       position: relative;
@@ -872,36 +904,47 @@ iframe {
       z-index: 1000;
     }
     #a1:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_1_wb.png);
+      background-image: url(../img/left_icon_1_wb.png);
     }
     #a2:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_2_wb.png);
+      background-image: url(../img/left_icon_2_wb.png);
     }
     #a3:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_3_wb.png);
+      background-image: url(../img/left_icon_3_wb.png);
     }
     #a4:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_4_wb.png);
+      background-image: url(../img/left_icon_4_wb.png);
     }
     #a5:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_5_wb.png);
+      background-image: url(../img/left_icon_5_wb.png);
     }
     #a6:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_6_wb.png);
+      background-image: url(../img/left_icon_6_wb.png);
     }
     #a7:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_7_wb.png);
+      background-image: url(../img/left_icon_7_wb.png);
     }
     #a8:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_8_wb.png);
+      background-image: url(../img/left_icon_8_wb.png);
     }
     #a9:hover  {
-      background-image: url(http://logistic.carswar.com/template/default/img/left_icon_9_wb.png);
+      background-image: url(../img/left_icon_9_wb.png);
     }
     .tab_icons {
       display: none;
     }
  }
+ @media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .col-md-header {
+      top: 740px;
+  }
+  .col-md-content {
+    top: 795px;
+}
+.col-md-1 {
+      height: 679px;
+}
+}
   @media screen and (max-width: 560px) {
     .header_block .col-md-8 p {
       line-height: 32px;

@@ -30,10 +30,12 @@ $(document).ready(function() {
                         var center_lat = val2['center_lat'];
                         var center_lng = val2['center_lng'];
                         var item_id = val2['item_id'];
+                        var item_type = val2['service_type'];
 
                         map.addMarker({
                             lat: center_lat,
                             lng: center_lng,
+                            type: item_type,
                             click: function (e) {
                                 placeInfo( item_id );
                             },
@@ -161,6 +163,12 @@ $(document).ready(function() {
         return;
     }
 
+    function clearMapType( type )
+    {
+        map.removeMarkersCollection( type );
+        return;
+    }
+
     function clearMapFrom( item_id )
     {
         if ( collection[ item_id ] != undefined ){
@@ -187,25 +195,29 @@ $(document).ready(function() {
             show_markers = false;
         }
 
-        console.log(show_markers);
+        //console.log(show_markers);
 
         // Airports
         if ( id == 2 )
         {
-            clearMapFrom( id );
+            clearMapType( id );
             if ( show_markers ) placeMarkers( id );
 
-        } else if ( id == 1 ) {
+        } else if ( id == 1 ) { // See Ports
 
-            clearMapFrom( 10 );
-            clearMapFrom( 11 );
-            clearMapFrom( 13 );
+            //clearMapType( id );
+            clearMapType( 10 );
+            clearMapType( 11 );
+            clearMapType( 13 );
 
             if ( show_markers )
             {
-                placeMarkers( 10 );
+
+                placeMarkers( id );
+
+                /*placeMarkers( 10 );
                 placeMarkers( 11 );
-                placeMarkers( 13 );
+                placeMarkers( 13 );*/
             }
 
             $( tclass ).toggle("slow");

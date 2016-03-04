@@ -2,8 +2,11 @@
     {assign var=c_controller value=Request::current()->controller()}
     {assign var=uri value=$this->request->uri}
 
-    <input type="hidden" value="0" name="is_guest_allowed">
-    <input type="hidden" value="0" name="access">
+    {if $current_user->isGuest() !== true }
+        <input type="hidden" value="1" name="is_guest">
+    {else}
+        <input type="hidden" value="0" name="is_guest">
+    {/if}
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -16,19 +19,48 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#"><img src="{$base_UI}img/logo.png"></a>
+                <ul class="nav navbar-nav navbar-right mobile">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">RUS <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" class="i18n" data-i18n="ru">RUS </a></li>
+                        <li><a href="#" class="i18n" data-i18n="en">ENG </a></li>
+                        <li><a href="#" class="i18n" data-i18n="ua">UKR </a></li>
+                        <li><a href="#">SPA </a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" class="loginButton"><img src="{$base_UI}img/user.png"></a></li>
+                    <li><a href="#"><img src="{$base_UI}img/setting.png"></a></li>
+                </ul>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" id="menu">
-                    <li><a href="#map" class="btn_block1 active"><img src="{$base_UI}img/map_icon.png"> Карта</a></li>
-                    <li><a href="#about" class="btn_block2"><img src="{$base_UI}img/sputnik.png"> Отслеживать</a></li>
-                    <li><a href="#contact" class="btn_block3"><img src="{$base_UI}img/book.png"> Справочник</a></li>
-                    <li><a href="#about" class="btn_block4"><img src="{$base_UI}img/caculator.png"> Калькулятор</a></li>
-                    <li><a href="#contact" class="btn_block5"><img src="{$base_UI}img/image.png"> Производители</a></li>
-                    <li><a href="#contact" class="btn_block6"><img src="{$base_UI}img/study.png"> Обучение</a></li>
+                <ul class="nav navbar-nav big" id="menu">
+                    {if $current_user->isGuest() != 1 }
+                        <li><a href="#" data-block="1" class="show_sideblock btn_block1  active"><img src="{$base_UI}img/map_icon.png"> {__('Map')}</a></li>
+                        <li><a href="#" data-block="2" class="show_sideblock btn_block2"><img src="{$base_UI}img/sputnik.png"> {__('Track')}</a></li>
+                        <li><a href="#" data-block="3" id="menu3" class="show_sideblock btn_block3"><img src="{$base_UI}img/book.png"> {__('Directory')}</a></li>
+                        <li><a href="#" data-block="4" class="show_sideblock btn_block4"><img src="{$base_UI}img/caculator.png"> {__('Calculator')}</a></li>
+                        <li><a href="#" data-block="5" class="show_sideblock btn_block5"><img src="{$base_UI}img/image.png"> {__('Manufacturers')}</a></li>
+                        <li><a href="#" data-block="6" class="show_sideblock btn_block6"><img src="{$base_UI}img/study.png"> {__('Training')}</a></li>
+                        <!-- <li><a href="#" class="show_sideblock btn_block1  active"><img src="{$base_UI}img/map_icon.png"> Карта</a></li>
+                        <li><a href="#" class="show_sideblock btn_block2"><img src="{$base_UI}img/sputnik.png"> Отслеживать</a></li>
+                        <li><a href="#" id="menu3" class="show_sideblock btn_block3"><img src="{$base_UI}img/book.png"> Справочник</a></li>
+                        <li><a href="#" class="show_sideblock btn_block4"><img src="{$base_UI}img/caculator.png"> Калькулятор</a></li>
+                        <li><a href="#" class="show_sideblock btn_block5"><img src="{$base_UI}img/image.png"> Производители</a></li>
+                        <li><a href="#" class="show_sideblock btn_block6"><img src="{$base_UI}img/study.png"> Обучение</a></li> -->
+                    {/if}
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Ru</a></li>
-                    <li><a href="#" id="loginButton"><img src="{$base_UI}img/user.png"></a></li>
+                <ul class="nav navbar-nav navbar-right big">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">RUS <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" class="i18n" data-i18n="ru">RUS </a></li>
+                        <li><a href="#" class="i18n" data-i18n="en">ENG </a></li>
+                        <li><a href="#" class="i18n" data-i18n="ua">UKR </a></li>
+                        <li><a href="#">SPA </a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" class="loginButton"><img src="{$base_UI}img/user.png"></a></li>
                     <li><a href="#"><img src="{$base_UI}img/setting.png"></a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
@@ -45,32 +77,32 @@
         <form id="loginForm" method="post" class="form-horizontal" action="/{Route::get('pages')->uri(['controller'=>'Auth','action'=>'login'])}" style="display: none;">
             <div class="form-group">
                 <label class="col-sm-3 control-label">Username</label>
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <input type="text" class="form-control" name="email" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Password</label>
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <input type="password" class="form-control" name="password" />
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-sm-5 col-sm-offset-3" style="width:47%;">
+                <div class="col-sm-8 col-sm-offset-3">
                     <p class="login-button"><button type="submit" class="btn btn-default">Login</button></p>
                     <p class="forgot"><a href="#" class="recovery">Forgot Password</a></p>
 
                     <div class="email_hid">
                         <div class="attempt"></div>
-                        <input type="text" name="email_send" value="">
-                        <input type="button" class="recovery_send" value="Recovery" data-action="/{Route::get('pages')->uri(['controller'=>'Auth','action'=>'forgotPassword'])}">
+                        <input type="text" name="email_send" value="" class="form-control">
+                        <input type="button" class="recovery_send btn btn-default" value="Recovery" data-action="/{Route::get('pages')->uri(['controller'=>'Auth','action'=>'forgotPassword'])}">
                     </div>
 
-                    <p class="social-author"><a id="{$uniq_id}" href="#" x-ulogin-params="{$params}" class="btn btn-primary" style="float:center;">
+                    <!-- <p class="social-author"><a id="{$uniq_id}" href="#" x-ulogin-params="{$params}" class="btn btn-primary" style="float:center;">
                             <img src="http://ulogin.ru/img/button.png" width=187 height=30 alt="Login with Network"/>
-                        </a></p>
+                        </a></p> -->
                 </div>
             </div>
         </form>

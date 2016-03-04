@@ -185,7 +185,7 @@ var GMaps = (function(global) {
           'resize', 'tilesloaded', 'zoom_changed'
         ],
         events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'],
-        options_to_be_deleted = ['el', 'lat', 'lng', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
+        options_to_be_deleted = ['el', 'lat', 'lng', 'type', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
         identifier = options.el || options.div,
         markerClustererFunction = options.markerClusterer,
         setCentreMapFunction = options.setCentreMap,
@@ -246,6 +246,7 @@ var GMaps = (function(global) {
     this.layers = []; // array with kml/georss and fusiontables layers, can be as many
     this.singleLayers = {}; // object with the other layers, only one per layer
     this.markers = [];
+    this.collectionType = {};
     this.polylines = [];
     this.routes = [];
     this.polygons = [];
@@ -751,6 +752,20 @@ GMaps.prototype.addMarker = function(options) {
 
   this.markers.push(marker);
 
+  // Add Marker To Collection // astar
+  var idx = this.markers.indexOf(marker);
+  var type = options['type'];
+  console.log(options['type']);
+
+
+  if ( this.collectionType[ type ] == undefined )
+  {
+    this.collectionType[ type ] = {
+      'markers': [],
+    };
+  }
+
+  this.collectionType[ type ]['markers'].push( idx );
   GMaps.fire('marker_added', marker, this);
 
   return marker;
@@ -838,6 +853,43 @@ GMaps.prototype.removeMarkers = function (collection) {
 
     this.markers = new_markers;
   }
+};
+
+GMaps.prototype.removeMarkersCollection = function ( type ) {
+  if ( this.collectionType[ type ] == undefined ) {
+    return;
+  }
+
+  var new_markers = [];
+  var markers_type = this.collectionType[ type ]['markers'];
+
+  for (var i = 0; i < markers_type.length; i++) {
+    var index = markers_type[ i ];
+
+    if (index > -1) {
+      var marker = this.markers[ index ];
+
+      if ( marker != undefined ){
+        marker.setMap(null);
+
+        if(this.markerClusterer) {
+          this.markerClusterer.removeMarker(marker);
+        }
+
+        GMaps.fire('marker_removed', marker, this);
+      }
+
+    }
+  }
+
+  for (var i = 0; i < this.markers.length; i++) {
+    var marker = this.markers[i];
+    if (marker.getMap() != null ) {
+      this.markers.pop(i);
+    }
+  }
+
+  //this.markers = new_markers;
 };
 
 GMaps.prototype.removeMarkersFrom = function (from, to) {

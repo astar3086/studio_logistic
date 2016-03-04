@@ -27,6 +27,50 @@ class Places extends \Builder
         999 => [11691,7284, 7499, 12799, 12907, 4365]
     ];
 
+    public function action_testing()
+    {
+
+        $id_service = 1;
+        $limit      = 10;
+        $offset     = 0;
+
+        $parent = \Model\Services::model()->findByPk( $id_service );
+        $childs = [$id_service];
+
+        // Child Services
+        if ( $parent->parent_id == 0 )
+        {
+            $child_serv = \Model\Services::model()
+                ->getListArray( $id_service );
+
+            if ( $child_serv )
+                $childs = array_keys( $child_serv );
+        }
+
+        $childs_sql = "(".implode( ",", $childs ).")";
+
+        // Find Places
+        $criteria = (new \DBCriteria());
+        $criteria->limit = $limit;
+
+        if ( $offset ) $criteria->offset = $offset;
+        $data = \Model\Places::model()
+            ->with(array(
+                'placeService'=>array(
+                    'select'=>false,
+                    'joinType'=>'INNER JOIN',
+                    'condition'=>' placeService.idservice_type IN '.$childs_sql,
+                )))->findAll( $criteria );
+
+
+        $this->template->assign([
+            'data'   => $data,
+        ]);
+
+        $this->response->body($this->template->fetch('testing.tpl'));
+
+    }
+
     // Маркеры по типу
     public function action_getByService()
     {
@@ -59,7 +103,7 @@ class Places extends \Builder
             if ( $limit ) {
                 $criteria->limit = $limit;
             }  else {
-                $criteria->limit = 400;
+                $criteria->limit = 10000;
             }
 
             if ( $offset ) $criteria->offset = $offset;
