@@ -53,7 +53,7 @@ $(document).ready(function() {
         }
     });
 
-    // Left Services
+    // Left Services Sub Groups
     $(".serv_type").click(function(e){
         var get_id = $(this).data('id');
         var path = "/template/default/img/";
@@ -76,7 +76,10 @@ $(document).ready(function() {
 
             // No Active
             $(this).find("img").attr("src", path + no_active_pic);
-            clearMapFrom( get_id );
+            clearMapType( get_id );
+
+            // Sub Category Set Not Active
+            collection[ get_id ] = undefined;
         } else {
 
             // Active
@@ -97,14 +100,10 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function ( data_array ) {
-                var length = Object.keys(data_array.data).length;
-                last_index = map.lastMarkerIndex() + 1;
+/*                var length = Object.keys( data_array.data ).length;
+                last_index = map.lastMarkerIndex() + 1;*/
 
-                collection[ get_id ] = {
-                    'from': last_index,
-                    'to': (last_index + length)
-                };
-
+                collection[ get_id ] = true;
                 /*console.log(map);
                  return;*/
 
@@ -114,6 +113,12 @@ $(document).ready(function() {
                     var item_id    = val2['item_id'];
                     var item_type = val2['service_type'];
                     //console.log(item_type);
+
+                    if ( collection[ item_type ] == undefined )
+                    {
+                        collection[ item_type ] = true;
+                        //console.log(item_type);
+                    }
 
                     map.addMarker({
                         lat: center_lat,
@@ -133,6 +138,7 @@ $(document).ready(function() {
         });
     }
 
+    // Инфа по конкретному маркеру
     function placeInfo( item_id )
     {
         jQuery.ajax({
@@ -156,6 +162,7 @@ $(document).ready(function() {
         return;
     }
 
+    // Удалить все маркеры
     function clearMap()
     {
         last_index = 0;
@@ -166,13 +173,14 @@ $(document).ready(function() {
         return;
     }
 
+    // Очистка данных по под-категории
     function clearMapType( type )
     {
         map.removeMarkersCollection( type );
         return;
     }
 
-    function clearMapFrom( item_id )
+    /*function clearMapFrom( item_id )
     {
         if ( collection[ item_id ] != undefined ){
             from = collection[ item_id ].from - 2;
@@ -184,8 +192,9 @@ $(document).ready(function() {
 
         collection[ item_id ]=undefined;
         return;
-    }
+    }*/
 
+    // Base Service Category
     $('.icon1').click(function()
     {
         var id = $(this).data("id");
@@ -226,9 +235,9 @@ $(document).ready(function() {
             $( tclass ).toggle("slow");
 
         } else if ( id == 3 || id == 4 || id == 5
-            || id == 6 || id == 7 || id == 8 || id == 9 ) {
-
-            clearMap();
+            || id == 6 || id == 7 || id == 8 || id == 9 )
+        {
+            clearMapType( id );
 
         } else {
             $( tclass ).toggle("slow");

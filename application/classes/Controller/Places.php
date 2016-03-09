@@ -103,7 +103,7 @@ class Places extends \Builder
             if ( $limit ) {
                 $criteria->limit = $limit;
             }  else {
-                $criteria->limit = 10000;
+                $criteria->limit = 400;
             }
 
             if ( $offset ) $criteria->offset = $offset;
