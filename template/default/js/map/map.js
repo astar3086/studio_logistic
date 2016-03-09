@@ -35,7 +35,7 @@ $(document).ready(function() {
                         map.addMarker({
                             lat: center_lat,
                             lng: center_lng,
-                            type: item_type,
+                            marker_type: item_type,
                             click: function (e) {
                                 placeInfo( item_id );
                             },
@@ -109,13 +109,16 @@ $(document).ready(function() {
                  return;*/
 
                 $.each(data_array.data, function(idx2, val2) {
-                    center_lat = val2['center_lat'];
-                    center_lng = val2['center_lng'];
+                    var center_lat = val2['center_lat'];
+                    var center_lng = val2['center_lng'];
                     var item_id    = val2['item_id'];
+                    var item_type = val2['service_type'];
+                    //console.log(item_type);
 
                     map.addMarker({
                         lat: center_lat,
                         lng: center_lng,
+                        marker_type: item_type,
                         click: function(e) {
                             placeInfo( item_id );
                         },

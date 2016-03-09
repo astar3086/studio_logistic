@@ -185,7 +185,7 @@ var GMaps = (function(global) {
           'resize', 'tilesloaded', 'zoom_changed'
         ],
         events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'],
-        options_to_be_deleted = ['el', 'lat', 'lng', 'type', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
+        options_to_be_deleted = ['el', 'lat', 'lng', 'mapType', 'width', 'height', 'markerClusterer', 'enableNewStyle'],
         identifier = options.el || options.div,
         markerClustererFunction = options.markerClusterer,
         setCentreMapFunction = options.setCentreMap,
@@ -634,6 +634,7 @@ GMaps.prototype.createMarker = function(options) {
       details = options.details,
       fences = options.fences,
       outside = options.outside,
+      marker_type = options.marker_type,
       base_options = {
         position: new google.maps.LatLng(options.lat, options.lng),
         map: null
@@ -754,8 +755,8 @@ GMaps.prototype.addMarker = function(options) {
 
   // Add Marker To Collection // astar
   var idx = this.markers.indexOf(marker);
-  var type = options['type'];
-  console.log(options['type']);
+  var type = options.marker_type;
+  //console.log(options.marker_type);
 
 
   if ( this.collectionType[ type ] == undefined )
